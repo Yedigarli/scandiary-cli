@@ -1,0 +1,42 @@
+{
+  "name": "scandiary",
+  "version": "0.1.0",
+  "description": "Accessibility check for sites built with AI tools. Scans your pages with axe-core and writes a fix prompt you can paste into Claude Code, Cursor or Lovable.",
+  "type": "module",
+  "bin": {
+    "scandiary": "bin/scandiary.mjs"
+  },
+  "files": [
+    "bin",
+    "src/*.mjs",
+    "!src/*.test.mjs",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test \"src/*.test.mjs\""
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "accessibility",
+    "a11y",
+    "axe-core",
+    "wcag",
+    "cli",
+    "vibe-coding",
+    "claude-code",
+    "cursor"
+  ],
+  "homepage": "https://scandiary.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yedigarli/scandiary-cli.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "axe-core": "^4.12.1",
+    "puppeteer-core": "^25.3.0"
+  }
+}
