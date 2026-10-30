@@ -40,7 +40,7 @@ Page content in the prompt is treated as untrusted data. It is flattened, shorte
 
 ## Privacy
 
-The check runs on your machine. This tool sends no telemetry and has no analytics. The only requests go to the site you asked it to check.
+The check runs on your machine. This tool sends no telemetry and has no analytics. Your browser opens the pages you asked it to check, along with whatever those pages load, as in a normal visit.
 
 ## Weekly checks
 
