@@ -69,13 +69,28 @@ async function prepareForMeasuring(page, warn) {
   }
 }
 
+/*
+  Without this check an error response still got scanned. An empty 404 makes Chrome
+  show its own error page, and that page's issues were reported as the site's
+  (found 2026-11-03: a 404 came back as "meta-viewport" on chrome-error://chromewebdata/).
+  A site's own 404 page is refused too: it is not the page the user asked about.
+*/
+export function pageProblem(status, finalUrl) {
+  if (!/^https?:/.test(finalUrl)) return 'The browser showed its own error page, so the page was NOT checked.';
+  if (status == null) return 'The server sent no response, so the page was NOT checked.';
+  if (status >= 400) return `The server answered HTTP ${status}, so the page was NOT checked.`;
+  return null;
+}
+
 export async function scanPage(browser, address, warn = () => {}) {
   const page = await browser.newPage();
   try {
     // axe has to run inside the page. Without this, a strict CSP stops it from loading.
     // It only affects this private headless browser, never the site or its visitors.
     await page.setBypassCSP(true);
-    await page.goto(address, { waitUntil: 'networkidle2', timeout: PAGE_TIMEOUT_MS });
+    const response = await page.goto(address, { waitUntil: 'networkidle2', timeout: PAGE_TIMEOUT_MS });
+    const problem = pageProblem(response?.status() ?? null, page.url());
+    if (problem) throw new Error(problem);
     await prepareForMeasuring(page, warn);
     await page.addScriptTag({ path: AXE_PATH });
 

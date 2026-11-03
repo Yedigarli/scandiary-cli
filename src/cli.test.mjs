@@ -3,6 +3,7 @@ import { test } from 'node:test';
 import { parseArgs, parsePages, parseUrl } from './args.mjs';
 import { findBrowser } from './chrome.mjs';
 import { crawl } from './crawl.mjs';
+import { pageProblem } from './scan.mjs';
 import { filterLinks, normalizeUrl, resolveRoot } from './links.mjs';
 import { RULE_HINTS, formatPrompt, quoteHtml } from './prompt.mjs';
 import { LIMITS_NOTE, formatJson, formatText, mergeIssues } from './report.mjs';
@@ -156,4 +157,13 @@ test('findBrowser honours CHROME_PATH and explains a missing browser', () => {
   assert.equal(findBrowser({ env, exists: () => true }), '/x/chrome');
   assert.throws(() => findBrowser({ env, exists: () => false }), /does not exist/);
   assert.throws(() => findBrowser({ platform: 'linux', env: {}, exists: () => false }), /No Chrome/);
+});
+
+test('pageProblem refuses error responses and browser error pages', () => {
+  assert.equal(pageProblem(200, 'https://a.com/'), null);
+  assert.equal(pageProblem(304, 'https://a.com/'), null);
+  assert.match(pageProblem(404, 'https://a.com/x'), /HTTP 404/);
+  assert.match(pageProblem(503, 'https://a.com/'), /HTTP 503/);
+  assert.match(pageProblem(200, 'chrome-error://chromewebdata/'), /own error page/);
+  assert.match(pageProblem(null, 'https://a.com/'), /no response/);
 });
