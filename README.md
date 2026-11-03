@@ -17,6 +17,17 @@ npx scandiary https://your-site.com --prompt > fix-a11y.md
 
 Paste that file into your coding tool. Each issue comes with real examples from your pages and a note on how to fix it properly. The prompt also tells your tool what not to do: no overlay scripts, no hiding elements just to pass, and no saying the work is done until a new scan confirms it.
 
+## Use it from Claude Code
+
+Install the skill once:
+
+```bash
+mkdir -p ~/.claude/skills/scandiary
+curl -o ~/.claude/skills/scandiary/SKILL.md https://raw.githubusercontent.com/Yedigarli/scandiary-cli/master/skills/scandiary/SKILL.md
+```
+
+Then ask in plain words, for example *"check the accessibility of localhost:3000 and fix what you find"*. Claude runs the check, edits your code, and runs the check again before it reports the numbers. It lists any labels it had to guess so you can review them.
+
 ## Options
 
 | Option | What it does |
