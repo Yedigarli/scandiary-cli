@@ -1,0 +1,42 @@
+name: test
+
+# Why three systems: the CLI was first run only on Windows (2026-10-31).
+# Linux and macOS find Chrome by different paths, and Ubuntu 24.04 restricts the
+# sandbox Chrome uses. A user should not be the first to find out it breaks.
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm test
+
+      # A real scan from the source, against a page we do not control but that is stable.
+      - name: Scan from source
+        run: node bin/scandiary.mjs https://example.com --pages 1
+
+      # The packed tarball is what npm users get. Testing it catches a missing file in "files".
+      - name: Scan from packed tarball
+        shell: bash
+        run: |
+          npm pack
+          mkdir ../packed && cd ../packed
+          npm init -y > /dev/null
+          npm install ../scandiary-cli/scandiary-*.tgz
+          npx scandiary https://example.com --pages 1
