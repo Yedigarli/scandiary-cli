@@ -1,2 +1,5 @@
 node_modules/
 *.log
+# MCP registry publisher and its login tokens: never commit
+mcp-publisher*
+.mcpregistry_*
