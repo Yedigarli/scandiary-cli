@@ -14,7 +14,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "node --test \"src/*.test.mjs\""
+    "test": "node --test src/cli.test.mjs"
   },
   "engines": {
     "node": ">=20"

@@ -18,12 +18,14 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
+        # 20 is the lowest version in "engines"; it lacks test globs, which hid a broken npm test.
+        node: [20, 24]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ matrix.node }}
       - run: npm ci
       - run: npm test
 
@@ -38,5 +40,5 @@ jobs:
           npm pack
           mkdir ../packed && cd ../packed
           npm init -y > /dev/null
-          npm install ../scandiary-cli/scandiary-*.tgz
+          npm install "$GITHUB_WORKSPACE"/scandiary-*.tgz
           npx scandiary https://example.com --pages 1
