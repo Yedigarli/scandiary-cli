@@ -167,3 +167,12 @@ test('pageProblem refuses error responses and browser error pages', () => {
   assert.match(pageProblem(200, 'chrome-error://chromewebdata/'), /own error page/);
   assert.match(pageProblem(null, 'https://a.com/'), /no response/);
 });
+
+test('parseArgs: --mcp needs no URL', () => {
+  assert.equal(parseArgs(['--mcp']).mcp, true);
+});
+
+test('formatPrompt asks the tool to list guessed labels', () => {
+  const text = formatPrompt('https://a.com/', [{ url: 'https://a.com/' }], mergeIssues([{ url: 'https://a.com/', result: { violations: [violation('button-name', 'critical')] } }]));
+  assert.match(text, /list each guess/);
+});

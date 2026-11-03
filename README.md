@@ -28,6 +28,23 @@ curl -o ~/.claude/skills/scandiary/SKILL.md https://raw.githubusercontent.com/Ye
 
 Then ask in plain words, for example *"check the accessibility of localhost:3000 and fix what you find"*. Claude runs the check, edits your code, and runs the check again before it reports the numbers. It lists any labels it had to guess so you can review them.
 
+## Use it as an MCP server
+
+For Cursor, Claude Desktop, Windsurf or any MCP client, add this to the client's MCP config:
+
+```json
+{
+  "mcpServers": {
+    "scandiary": {
+      "command": "npx",
+      "args": ["-y", "scandiary", "--mcp"]
+    }
+  }
+}
+```
+
+It adds one tool, `check_accessibility`, which takes a `url` and an optional `pages` count and returns the fix prompt. In Claude Code: `claude mcp add scandiary -- npx -y scandiary --mcp`.
+
 ## Options
 
 | Option | What it does |
@@ -36,6 +53,7 @@ Then ask in plain words, for example *"check the accessibility of localhost:3000
 | `--prompt` | Print only the fix prompt |
 | `--json` | Print the full result as JSON |
 | `--strict` | Exit with code 1 when issues are found, for CI |
+| `--mcp` | Run as an MCP server over stdio |
 
 Exit codes: `0` finished, `1` issues found with `--strict`, `2` the check could not run.
 

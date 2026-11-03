@@ -1,6 +1,6 @@
 {
   "name": "scandiary",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Accessibility check for sites built with AI tools. Scans your pages with axe-core and writes a fix prompt you can paste into Claude Code, Cursor or Lovable.",
   "type": "module",
   "bin": {
@@ -14,7 +14,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "node --test src/cli.test.mjs"
+    "test": "node --test src/cli.test.mjs src/mcp.test.mjs src/mcp-sdk.test.mjs"
   },
   "engines": {
     "node": ">=20"
@@ -38,5 +38,8 @@
   "dependencies": {
     "axe-core": "^4.12.1",
     "puppeteer-core": "^25.3.0"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2"
   }
 }

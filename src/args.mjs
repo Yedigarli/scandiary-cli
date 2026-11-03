@@ -12,6 +12,7 @@ Options:
   --prompt         Print only the fix prompt, for piping into a file or clipboard
   --json           Print the full result as JSON
   --strict         Exit with code 1 when issues are found (for CI)
+  --mcp            Run as an MCP server over stdio (for Cursor, Claude Desktop)
   -h, --help       Show this help
   -v, --version    Show the version
 
@@ -58,6 +59,7 @@ export function parseArgs(argv) {
     const arg = argv[i];
     if (arg === '-h' || arg === '--help') return { ...options, help: true };
     if (arg === '-v' || arg === '--version') return { ...options, version: true };
+    if (arg === '--mcp') return { ...options, mcp: true };
     if (arg === '--prompt') options.prompt = true;
     else if (arg === '--json') options.json = true;
     else if (arg === '--strict') options.strict = true;
