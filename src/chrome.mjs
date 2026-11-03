@@ -46,10 +46,20 @@ export function findBrowser({ platform = process.platform, env = process.env, ex
   );
 }
 
+/*
+  Chrome's sandbox usually cannot start inside a Docker container, and Glama checks MCP
+  servers in one. The container is then the isolation, so the Dockerfile sets this.
+  It is off unless set to exactly "1": on a user's own machine the sandbox stays on.
+*/
+export function launchArgs(env = process.env) {
+  return env.SCANDIARY_NO_SANDBOX === '1' ? ['--no-sandbox'] : [];
+}
+
 export function openBrowser() {
   return puppeteer.launch({
     headless: true,
     executablePath: findBrowser(),
     defaultViewport: VIEWPORT,
+    args: launchArgs(),
   });
 }

@@ -1,0 +1,7 @@
+node_modules
+.git
+.github
+*.log
+mcp-publisher*
+.mcpregistry_*
+src/*.test.mjs

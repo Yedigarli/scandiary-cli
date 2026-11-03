@@ -42,3 +42,21 @@ jobs:
           npm init -y > /dev/null
           npm install "$GITHUB_WORKSPACE"/scandiary-*.tgz
           npx scandiary https://example.com --pages 1
+
+  # Glama starts MCP servers from the Dockerfile. Nothing local runs Docker here, so this
+  # job is the only proof that the image builds and that Chromium scans inside it.
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t scandiary-mcp .
+      - name: MCP call inside the container
+        shell: bash
+        run: |
+          init='{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"ci","version":"0"}}}'
+          call='{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"check_accessibility","arguments":{"url":"https://example.com","pages":1}}}'
+          out=$( (printf '%s\n%s\n' "$init" "$call"; sleep 90) | timeout 120 docker run -i --rm scandiary-mcp | head -n 2 )
+          echo "$out" | cut -c1-300
+          echo "$out" | grep -q '"id":2' || { echo "no reply to the tool call"; exit 1; }
+          echo "$out" | grep '"id":2' | grep -q '"isError":true' && { echo "tool returned an error"; exit 1; }
+          echo "$out" | grep '"id":2' | grep -q 'roughly a third'

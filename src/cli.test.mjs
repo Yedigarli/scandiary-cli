@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { parseArgs, parsePages, parseUrl } from './args.mjs';
-import { findBrowser } from './chrome.mjs';
+import { findBrowser, launchArgs } from './chrome.mjs';
 import { crawl } from './crawl.mjs';
 import { pageProblem } from './scan.mjs';
 import { filterLinks, normalizeUrl, resolveRoot } from './links.mjs';
@@ -175,4 +175,10 @@ test('parseArgs: --mcp needs no URL', () => {
 test('formatPrompt asks the tool to list guessed labels', () => {
   const text = formatPrompt('https://a.com/', [{ url: 'https://a.com/' }], mergeIssues([{ url: 'https://a.com/', result: { violations: [violation('button-name', 'critical')] } }]));
   assert.match(text, /list each guess/);
+});
+
+test('launchArgs keeps the Chrome sandbox on unless the container asks', () => {
+  assert.deepEqual(launchArgs({}), []);
+  assert.deepEqual(launchArgs({ SCANDIARY_NO_SANDBOX: 'true' }), []);
+  assert.deepEqual(launchArgs({ SCANDIARY_NO_SANDBOX: '1' }), ['--no-sandbox']);
 });
