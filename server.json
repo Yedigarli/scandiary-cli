@@ -1,0 +1,27 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.Yedigarli/scandiary",
+  "description": "Accessibility check (axe-core, WCAG A/AA) for sites you build, with a fix prompt for your AI tool.",
+  "repository": {
+    "url": "https://github.com/Yedigarli/scandiary-cli",
+    "source": "github"
+  },
+  "version": "0.2.1",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "scandiary",
+      "version": "0.2.1",
+      "runtimeArguments": [],
+      "packageArguments": [
+        {
+          "type": "positional",
+          "value": "--mcp"
+        }
+      ],
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}
