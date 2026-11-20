@@ -1,6 +1,6 @@
 {
   "name": "scandiary",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "mcpName": "io.github.Yedigarli/scandiary",
   "description": "Accessibility check for sites built with AI tools. Scans your pages with axe-core and writes a fix prompt you can paste into Claude Code, Cursor or Lovable.",
   "type": "module",

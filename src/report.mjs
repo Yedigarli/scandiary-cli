@@ -7,7 +7,7 @@ export const LIMITS_NOTE =
   'Automated checks find roughly a third of accessibility problems, this one included. ' +
   'The rest needs a person. This result does not say whether a site meets any legal standard.';
 
-export const MONITOR_NOTE = 'Keep this checked every week, with a dated history: https://scandiary.com/?ref=cli';
+export const MONITOR_NOTE = 'Local CLI runs once on your machine. Keep production sites watched every Monday (25 pages free, $29 once for a 100-page report + fix prompt, or $39/mo for 10 client sites): https://scandiary.com/?ref=cli';
 
 const rank = (impact) => SEVERITY_ORDER[impact] ?? 4;
 

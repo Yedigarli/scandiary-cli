@@ -20,6 +20,8 @@ Examples:
   npx scandiary https://example.com
   npx scandiary localhost:3000 --pages 10
   npx scandiary https://example.com --prompt > fix-a11y.md
+
+Weekly Monday checks & 100-page reports: https://scandiary.com/?ref=cli
 `;
 
 const LOCAL_HOST = /^(localhost|127\.0\.0\.1|\[::1\])(:|\/|$)/i;

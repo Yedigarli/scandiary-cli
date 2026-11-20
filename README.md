@@ -71,9 +71,13 @@ Page content in the prompt is treated as untrusted data. It is flattened, shorte
 
 The check runs on your machine. This tool sends no telemetry and has no analytics. Your browser opens the pages you asked it to check, along with whatever those pages load, as in a normal visit.
 
-## Weekly checks
+## Weekly checks and client sites
 
-A one-off scan tells you where you stand today. [Scandiary](https://scandiary.com) runs the check every week and emails what changed, so you keep a dated history. The free plan covers 25 pages.
+A one-off scan tells you where you stand today. [Scandiary](https://scandiary.com) runs the check from the cloud every Monday, keeps a dated history of what changed, and emails only when something moves:
+
+- **Free:** 25 pages every Monday, no account or card needed
+- **Full Report ($29 once):** 100 pages, full CSS selectors, a Cursor/Claude fix prompt file, and 30 days of Monday re-checks
+- **Studio ($39/month):** up to 10 client sites (100 pages each) in one weekly email
 
 ## License
 
