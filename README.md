@@ -1,5 +1,7 @@
 # scandiary
 
+[![Yedigarli/scandiary-cli MCP server](https://glama.ai/mcp/servers/Yedigarli/scandiary-cli/badges/score.svg)](https://glama.ai/mcp/servers/Yedigarli/scandiary-cli)
+
 Check the accessibility of a site you built with Claude Code, Cursor, Lovable or by hand, then paste the result into your AI tool as a fix prompt.
 
 ```bash
